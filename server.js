@@ -5,9 +5,9 @@ const PORT = process.env.PORT || 8080;
 const { routerProducto } = require('./routers/routerProd');
 
 const {Server: HttpServer} = require('http');
-// const {Server: SocketServer} = require('socket.io');
+const {Server: SocketServer} = require('socket.io');
 const httpServer = new HttpServer(app);
-// const socketServer = new SocketServer(httpServer);
+const socketServer = new SocketServer(httpServer);
 
 const messages = [];
 
@@ -37,15 +37,15 @@ app.set("view engine", "hbs");
 
 
 // CH A T
-// socketServer.on('connection', (socket) => {
-//     socket.emit('messages', messages);
-//
-//     socket.on('new_message', (mensaje) => {
-//         messages.push(mensaje);
-//         socketServer.sockets.emit('messages', messages);
-//     });
-//
-// });
+socketServer.on('connection', (socket) => {
+    socket.emit('messages', messages);
+
+    socket.on('new_message', (mensaje) => {
+        messages.push(mensaje);
+        socketServer.sockets.emit('messages', messages);
+    });
+
+});
 httpServer.listen(PORT, () => {
     console.log(`Corriendo server en el puerto ${PORT}!`);
 });
