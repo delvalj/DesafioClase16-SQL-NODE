@@ -2,19 +2,14 @@ const express = require("express");
 const app = express();
 const {engine} = require("express-handlebars");
 const PORT = process.env.PORT || 8080;
-
-const { routerProducto } = require('./routerProd');
-
-const messages = [];
+const { routerProducto } = require('./routers/routerProd');
 
 const {Server: HttpServer} = require('http');
 // const {Server: SocketServer} = require('socket.io');
-
 const httpServer = new HttpServer(app);
 // const socketServer = new SocketServer(httpServer);
 
-
-// ------------------------ // CODIGO DEL SERVER  // ---------------- // ---------------- // ---------------- // ---------------- //
+const messages = [];
 
 // Middleware para parsear el Body. Sin esto no obtenemos el Body. SIEMPRE QUE USAMOS POST HAY QUE USARLO.
 // El body llega como strings. Lo que hace el middleware es transformarlo en JSON y mandarlo a la funcion que debe controlarlo.

@@ -6,7 +6,7 @@ const storage = multer({destinantion: "/upload"});
 const PORT = process.env.PORT || 8080;
 
 
-let prodContainer = require('./contenedorProducto')
+let prodContainer = require('../clases/contenedorProducto')
 
 const optionsMySQL = {
     host: '127.0.0.1',

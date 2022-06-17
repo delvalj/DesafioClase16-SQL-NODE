@@ -2,10 +2,10 @@
   "name": "clase16entregable",
   "version": "1.0.0",
   "description": "",
-  "main": "contenedorProducto.js",
+  "main": "clases/contenedorProducto.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node contenedorProducto.js"
+    "start": "node clases/contenedorProducto.js"
   },
   "keywords": [],
   "author": "",
