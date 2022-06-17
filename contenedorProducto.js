@@ -43,15 +43,16 @@ class Contenedor {
      */
 
     async metodoSave(producto) {
-        const contenido = this.knex.select('*').from('articulos');
-        producto.id = contenido.length + 1;
+        // const contenido = this.knex.select('*').from('articulos');
+        // producto.id = contenido.length + 1;
         await this.knex('articulos').insert({
             titulo: producto.title,
             thumbnail: producto.thumbnail,
-            price: producto.price
+            price: producto.price,
+            code: producto.code
         })
 
-        console.log("El Id del Producto es " + producto.id);
+        // console.log("El Id del Producto es " + producto.id);
     }
 
     /**
@@ -110,7 +111,7 @@ app.get("/", async (req, res, next) => {
 });
 
 const productoSubido = storage.fields([
-    {title: "title", thumbnail: "thumbnail", price: "price"},
+    {title: "title", thumbnail: "thumbnail", price: "price", code: 'code'},
 ]);
 
 app.post('/', productoSubido, async (req, res) => {
@@ -118,7 +119,8 @@ app.post('/', productoSubido, async (req, res) => {
     if (
         req.body.title === "" ||
         req.body.price === "" ||
-        req.body.thumbnail === ""
+        req.body.thumbnail === "" ||
+        req.body.code === ""
     ) {
         res.status(400).send({
             error: "No se pudo cargar el producto. Complete los campos vacios.",
