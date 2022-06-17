@@ -20,7 +20,6 @@ const messages = [];
 const httpServer = new HttpServer(app);
 const socketServer = new SocketServer(httpServer);
 
-
 const optionsMySQL = {
     host: '127.0.0.1',
     user: 'root',
@@ -43,38 +42,25 @@ class Contenedor {
      */
 
     async metodoSave(producto) {
-        // const contenido = this.knex.select('*').from('articulos');
-        // producto.id = contenido.length + 1;
         await this.knex('articulos').insert({
             titulo: producto.title,
             thumbnail: producto.thumbnail,
             price: producto.price,
             code: producto.code
         })
-
-        // console.log("El Id del Producto es " + producto.id);
     }
 
     /**
      * Metodo para obtener todos los productos
      */
-    // async getAll() {
-    //     try {
-    //         const contenido = await this.knex.select('*').from(this.tabla)
-    //             .then((filas) => console.log(filas));
-    //         // await this.knex.destroy();
-    //
-    //         // console.log(contenido);
-    //         return contenido;
-    //     } catch (error) {
-    //         console.log("Error en getAll", error);
-    //         return [];
-    //     }
-    // }
-
     async getAll() {
+        try {
             const contenido = await this.knex.select('*').from(this.tabla);
             return contenido;
+        } catch (error) {
+            console.log("Error en getAll", error);
+            return [];
+        }
     }
 }
 
@@ -131,6 +117,7 @@ app.post('/', productoSubido, async (req, res) => {
     }
 })
 
+// CH A T
 
 socketServer.on('connection', (socket) => {
     socket.emit('messages', messages);
