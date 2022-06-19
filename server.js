@@ -8,6 +8,8 @@ const {Server: HttpServer} = require('http');
 const {Server: SocketServer} = require('socket.io');
 const httpServer = new HttpServer(app);
 const socketServer = new SocketServer(httpServer);
+const moment = require('moment');
+
 
 
 const messages = [];
@@ -48,10 +50,12 @@ const knexSQLite = Knex({
     useNullAsDefault: true
 })
 
+const fechaActual = moment();
+const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
+
 // metodos para clase cchat
 const saveMessage = async (message) => {
-    // await knexSQLite('mensajes').insert({author: message.author , text: message.text});
-    await knexSQLite('mensajes').insert({author: message.author, text: message.text, date: 'fechaformateadax2'});
+    await knexSQLite('mensajes').insert({author: message.author, text: message.text, date: fechaformateada});
 }
 
 const readMessage = async () => {
@@ -63,23 +67,16 @@ const readMessage = async () => {
     }
 }
 
-
 // CH A T
 socketServer.on('connection', async (socket) => {
-    socket.emit('messages', await  readMessage());
+    socket.emit('messages', await readMessage());
 
     socket.on('new_message',async (mensaje) => {
         console.log(mensaje);
         saveMessage(mensaje);
         let mensajes = await readMessage();
-        socketServer.sockets.emit('messages',mensajes);
+        socketServer.sockets.emit('messages', mensajes);
     });
-
-    // socket.on('new_message', async (message) => {
-    //     saveMessage(message);
-    //     let messages = await readMessage();
-    //     socketServer.sockets.emit('messages', messages);
-    // });
 
 });
 httpServer.listen(PORT, () => {
