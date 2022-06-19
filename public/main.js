@@ -12,8 +12,8 @@ const crearEtiquetasMensaje = (mensaje) => {
     const { author, text } = mensaje;
     return `
     <div>
-      <strong>${author}</strong>
-      <em>${text}</em>
+      <strong class="text-uppercase text-danger">${author}</strong>
+      <em class="text-primary">${text}</em>
     </div>
   `;
 }
