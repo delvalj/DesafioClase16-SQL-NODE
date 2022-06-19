@@ -9,11 +9,12 @@ const enviarMensaje = () => {
 }
 
 const crearEtiquetasMensaje = (mensaje) => {
-    const { author, text } = mensaje;
+    const { author, text, date } = mensaje;
     return `
-    <div>
+    <div class="p-1">
       <strong class="text-uppercase text-danger">${author}</strong>
       <em class="text-primary">${text}</em>
+      <em class="text-info ">${date}</em>
     </div>
   `;
 }
