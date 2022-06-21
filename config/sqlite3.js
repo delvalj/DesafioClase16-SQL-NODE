@@ -25,9 +25,8 @@ const ejecutar = async () => {
     const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
 
     await knex("mensajes").insert([
-        {author: "autor1", text: "mensaje1", date: fechaformateada},
-        {author: "autor2", text: "mensaje2", date: fechaformateada},
-        {author: "autor3", text: "mensaje3", date: fechaformateada}
+        {author: "Frank Zappa", text: "Muffin Men", date: fechaformateada},
+        {author: "Pink Floyd", text: "Have a Cigar", date: fechaformateada},
     ]);
 
     console.log(await knex.from("mensajes").select("*"));
