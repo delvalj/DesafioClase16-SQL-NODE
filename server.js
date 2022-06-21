@@ -8,14 +8,21 @@ const {Server: HttpServer} = require('http');
 const {Server: SocketServer} = require('socket.io');
 const httpServer = new HttpServer(app);
 const socketServer = new SocketServer(httpServer);
-const moment = require('moment');
-
-
-
-const messages = [];
-
+// const moment = require('moment');
 const Knex = require('knex').default;
 
+
+//Conección con SQLite
+const knexSQLite = Knex({
+    client: 'sqlite3',
+    connection: { filename: './DB/ecommerce.sqlite' },
+    useNullAsDefault: true
+})
+
+const ContenedorChat = require('./clases/contenedorChat.js');
+const contenedor = new ContenedorChat('mensajes', knexSQLite());
+
+const messages = [];
 
 // Middleware para parsear el Body. Sin esto no obtenemos el Body. SIEMPRE QUE USAMOS POST HAY QUE USARLO.
 // El body llega como strings. Lo que hace el middleware es transformarlo en JSON y mandarlo a la funcion que debe controlarlo.
@@ -42,39 +49,32 @@ app.set("views", "./hbs_views");
 app.set("view engine", "hbs");
 
 
-//Conección con SQLite
 
-const knexSQLite = Knex({
-    client: 'sqlite3',
-    connection: { filename: './DB/ecommerce.sqlite' },
-    useNullAsDefault: true
-})
+// const fechaActual = moment();
+// const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
 
-const fechaActual = moment();
-const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
-
-// metodos para clase cchat
-const saveMessage = async (message) => {
-    await knexSQLite('mensajes').insert({author: message.author, text: message.text, date: fechaformateada});
-}
-
-const readMessage = async () => {
-    let contenido = await knexSQLite.select('*').from('mensajes');
-    if (contenido === '') {
-        return '';
-    } else {
-        return contenido;
-    }
-}
+// // metodos para clase cchat
+// const saveMessage = async (message) => {
+//     await knexSQLite('mensajes').insert({author: message.author, text: message.text, date: fechaformateada});
+// }
+//
+// const readMessage = async () => {
+//     let contenido = await knexSQLite.select('*').from('mensajes');
+//     if (contenido === '') {
+//         return '';
+//     } else {
+//         return contenido;
+//     }
+// }
 
 // CH A T
 socketServer.on('connection', async (socket) => {
-    socket.emit('messages', await readMessage());
+    socket.emit('messages', await contenedor.readMessage());
 
     socket.on('new_message',async (mensaje) => {
         console.log(mensaje);
-        saveMessage(mensaje);
-        let mensajes = await readMessage();
+        await contenedor.saveMessage(mensaje);
+        let mensajes = await contenedor.readMessage();
         socketServer.sockets.emit('messages', mensajes);
     });
 
