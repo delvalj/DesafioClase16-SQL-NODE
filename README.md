@@ -23,6 +23,12 @@ Primero instalar todas las dependencias necesarias.
 Luego para poner en marcha el proyecto.
 * npm run start 
 
+
+* Para inicializar la tabla "Articulos" hay que ejecutar el archivo mysql.js
+
+
+* Para inicializar la tabla "Mensajes" hay que ejecutar el archivo sqlite3.js
+
 ## Dependencias
 * "express"
 * "express-handlebars"
