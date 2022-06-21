@@ -25,8 +25,8 @@ const ejecutar = async () => {
     });
 
     await knex("articulos").insert([
-        {titulo: "Producto precargado 1", price: 9.99, thumbnail: `http://example1.com` , code: 2251628},
-        {titulo: "Producto precargado 2", price: 8.88, thumbnail: `http://example2.com`, code: 2251667},
+        {titulo: "Producto precargado 1", price: 9.99, thumbnail: `https://unsplash.com/photos/i2S8ONaKuyQ` , code: 2251628},
+        {titulo: "Producto precargado 2", price: 8.88, thumbnail: `https://unsplash.com/photos/ed6aAKKP0Ns`, code: 2251667},
     ]);
 
     console.log(await knex.from("articulos").select("*"));

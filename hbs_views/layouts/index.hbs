@@ -10,26 +10,28 @@
 </head>
 <body>
 <div class="container text-center mt-2 border shadow-lg p-3 mb-5 bg-body rounded">
-    <h1 class="m-2">Desafio Entregable clase 16</h1>
+    <h1 class="m-3">Desafio Entregable SQL - NODE.js</h1>
     <form action="/" enctype="multipart/form-data" method="POST">
         <!-- title input -->
-        <div class="form-outline mb-4">
-            <input type="text" id="form5Example1" class="" name="title" placeholder="Titulo"/>
+        <div class="form-outline mb-4 ">
+            <input type="text" id="form5Example1" class="form-control" name="title" placeholder="Titulo"/>
             <!--          <label class="form-label" for="form5Example1">Name</label>-->
         </div>
         <!-- thumbnail input -->
         <div class="form-outline mb-4">
-            <input type="text" id="form5Example2" class="" name="thumbnail" placeholder="Thumbnail"/>
+            <input type="text" id="form5Example2" class="form-control" name="thumbnail" placeholder="Thumbnail"/>
             <!--          <label class="form-label" for="form5Example2">Email address</label>-->
         </div>
-        <!-- price input -->
-        <div class="form-outline mb-4">
-            <input type="number" name="price" placeholder="Price" id="form5Example3" class=""/>
-            <!--          <label class="form-label" for="form5Example2">Email address</label>-->
-        </div>
+
         <!-- codigo input -->
         <div class="form-outline mb-4">
-            <input type="number" name="code" placeholder="Code" id="form5Example3" class=""/>
+            <input type="number" name="code" placeholder="Code" id="form5Example3" class="form-control"/>
+            <!--          <label class="form-label" for="form5Example2">Email address</label>-->
+        </div>
+
+        <!-- price input -->
+        <div class="form-outline mb-4">
+            <input type="number" name="price" placeholder="Price" id="form5Example3" class="form-control"/>
             <!--          <label class="form-label" for="form5Example2">Email address</label>-->
         </div>
         <!-- Submit -->
@@ -41,21 +43,23 @@
 <!-- PRODUCTOS-->
 
 <div class="container border p-4 shadow-lg p-3 mb-5 bg-body rounded">
-    <h2 class="text-center m-2 ">PRODUCTOS</h2>
-    <table class="container">
+    <h2 class="text-center ">PRODUCTOS</h2>
+    <table class="container table table table-hover">
         <thead>
+        <th>ID</th>
         <th>Title</th>
         <th>Thumbnail</th>
+        <th>Code</th>
         <th>Price</th>
-        <th>Codigo</th>
         </thead>
         <tbody>
         {{#each showProductos }}
             <tr>
+                <td>{{id}}</td>
                 <td>{{titulo}}</td>
-                <td>{{thumbnail}}</td>
-                <td>{{price}}</td>
+                <td><a href="">{{thumbnail}}</a></td>
                 <td>{{code}}</td>
+                <td>${{price}}</td>
             </tr>
         {{/each}}
         </tbody>
@@ -69,10 +73,7 @@
 <html class="m-4" >
 <div class="container text-center mt-2 border shadow-lg p-3 mb-5 bg-body rounded">
     <h2 class="text-center mb-2">CHAT</h2>
-
-
     <head>
-
         <script src="../socket.io/socket.io.js"></script>
         <script src="main.js"></script>
     </head>
