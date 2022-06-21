@@ -8,11 +8,9 @@ const {Server: HttpServer} = require('http');
 const {Server: SocketServer} = require('socket.io');
 const httpServer = new HttpServer(app);
 const socketServer = new SocketServer(httpServer);
-// const moment = require('moment');
 const Knex = require('knex').default;
 
-
-//Conección con SQLite
+//Conexion con SQLite
 const knexSQLite = Knex({
     client: 'sqlite3',
     connection: { filename: './DB/ecommerce.sqlite' },

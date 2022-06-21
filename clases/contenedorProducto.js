@@ -26,8 +26,7 @@ module.exports = class Contenedor {
      */
     async getAll() {
         try {
-            const contenido = await this.knex.select('*').from(this.tabla);
-            return contenido;
+            return await this.knex.select('*').from(this.tabla);
         } catch (error) {
             console.log("Error en getAll", error);
             return [];
