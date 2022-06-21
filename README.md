@@ -12,7 +12,7 @@ Notas:
 Definir una carpeta DB para almacenar la base datos SQLite3 llamada ecommerce
 
 
-#Getting Started
+# Getting Started
 ## Clonar el proyecto:
 git clone https://github.com/delvalj/DesafioClase16-SQL-NODE.git
 
