@@ -5,15 +5,8 @@ const multer = require("multer");
 const storage = multer({destinantion: "/upload"});
 const PORT = process.env.PORT || 8080;
 
-
 let prodContainer = require('../clases/contenedorProducto')
-
-const optionsMySQL = {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'ecommerce'
-};
+const {optionsMySQL} = require('../config/options.js')
 
 routerProducto.get("/", async (req, res, next) => {
     const productos = new prodContainer(optionsMySQL, 'articulos');

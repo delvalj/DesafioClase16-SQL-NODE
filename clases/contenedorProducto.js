@@ -1,6 +1,11 @@
 // DESAFIO CLASE 16 SQL
 const Knex = require('knex').default;
 
+/**
+ * Clase Contenedor de producto.
+ * @type {module.Contenedor}
+ * Constructor donde se pasan las opciones de conexion a BD y table el nombre de la tabla dentro de la BD.
+ */
 module.exports = class Contenedor {
     constructor(options, tabla) {
         this.knex = Knex({

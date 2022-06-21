@@ -1,12 +1,5 @@
 const Knex = require('knex').default;
-
-const optionsMySQL = {
-    host: "localhost",
-    user: "root",
-    port: "3306",
-    password: "",
-    database: "ecommerce"
-};
+const optionsMySQL = require('../config/options.js')
 
 const knex = Knex({
     client: 'mysql2',
@@ -21,7 +14,6 @@ const ejecutar = async () => {
         table.float("price").notNullable();
         table.string("thumbnail", 250).notNullable();
         table.integer('code').notNullable();
-
     });
 
     await knex("articulos").insert([

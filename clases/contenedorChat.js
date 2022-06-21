@@ -1,26 +1,23 @@
 // DESAFIO CLASE 16 SQL
-
 const Knex = require('knex').default;
 const moment = require('moment');
-
-//Conección con SQLite
-const knexSQLite = Knex({
-    client: 'sqlite3',
-    connection: { filename: './DB/ecommerce.sqlite' },
-    useNullAsDefault: true
-})
+const {knexSQLite} = require('../config/options');
 
 const fechaActual = moment();
 const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
 
+/**
+ * Clase Contenedor Chat
+ * @type {module.ContenedorChat}
+ * Constructor donde se pasan las opciones de conexion a BD y table el nombre de la tabla dentro de la BD.
+ */
 module.exports = class ContenedorChat {
     constructor(options, tabla) {
         this.knex = Knex(options);
         this.tabla = tabla;
     }
-
     /**
-     * Metodo para guardar un producto. Al terminar de grabar, muestra por pantalla el ID del producto agregado.
+     * Metodo para guardar el mensaje en base de datos.
      * @param message
      */
 
@@ -30,7 +27,7 @@ module.exports = class ContenedorChat {
     }
 
     /**
-     * Metodo para obtener todos los mensajes
+     * Metodo para obtener todos los mensajes y renderizarlo por pantalla
      */
     async readMessage() {
         try {
@@ -46,7 +43,6 @@ module.exports = class ContenedorChat {
             return [];
         }
     }
-
 }
 
 

@@ -10,7 +10,10 @@ const httpServer = new HttpServer(app);
 const socketServer = new SocketServer(httpServer);
 const Knex = require('knex').default;
 
-//Conexion con SQLite
+const knexsqlite = require('./config/options.js');
+
+
+// Conexion con SQLite
 const knexSQLite = Knex({
     client: 'sqlite3',
     connection: { filename: './DB/ecommerce.sqlite' },
@@ -18,7 +21,7 @@ const knexSQLite = Knex({
 })
 
 const ContenedorChat = require('./clases/contenedorChat.js');
-const contenedor = new ContenedorChat('mensajes', knexSQLite());
+const contenedor = new ContenedorChat('mensajes', knexSQLite);
 
 const messages = [];
 
@@ -46,29 +49,10 @@ app.engine(
 app.set("views", "./hbs_views");
 app.set("view engine", "hbs");
 
-
-
-// const fechaActual = moment();
-// const fechaformateada = fechaActual.format("DD/MM/YYYY HH:MM:SS");
-
-// // metodos para clase cchat
-// const saveMessage = async (message) => {
-//     await knexSQLite('mensajes').insert({author: message.author, text: message.text, date: fechaformateada});
-// }
-//
-// const readMessage = async () => {
-//     let contenido = await knexSQLite.select('*').from('mensajes');
-//     if (contenido === '') {
-//         return '';
-//     } else {
-//         return contenido;
-//     }
-// }
-
 // CH A T
+
 socketServer.on('connection', async (socket) => {
     socket.emit('messages', await contenedor.readMessage());
-
     socket.on('new_message',async (mensaje) => {
         console.log(mensaje);
         await contenedor.saveMessage(mensaje);
